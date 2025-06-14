@@ -1,0 +1,425 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NotificationAPI</name>
+    </assembly>
+    <members>
+        <member name="T:NotificationAPI.AssetBundleLoad">
+            <summary>
+            Provides static methods for loading and unloading assets from an AssetBundle, specifically for the NotificationAPI.
+            This class handles loading the notification prefab and icons from a pre-built AssetBundle.
+            </summary>
+        </member>
+        <member name="F:NotificationAPI.AssetBundleLoad.bundlePath">
+            <summary>
+            The path to the AssetBundle file within the mod's resources.
+            </summary>
+        </member>
+        <member name="P:NotificationAPI.AssetBundleLoad.Bundle">
+            <summary>
+            The loaded AssetBundle object.
+            </summary>
+        </member>
+        <member name="P:NotificationAPI.AssetBundleLoad.NotificationPrefab">
+            <summary>
+            The notification prefab loaded from the AssetBundle.  This prefab should contain the UI elements for the notification popup.
+            </summary>
+        </member>
+        <member name="P:NotificationAPI.AssetBundleLoad.NotificationIcons">
+            <summary>
+            A temporary GameObject containing the notification icons loaded from the AssetBundle.
+            This is used to extract the individual icon sprites.
+            </summary>
+        </member>
+        <member name="F:NotificationAPI.AssetBundleLoad.InfoIcon">
+            <summary>
+            The sprite for the informational notification icon.
+            </summary>
+        </member>
+        <member name="F:NotificationAPI.AssetBundleLoad.WarningIcon">
+            <summary>
+            The sprite for the warning notification icon.
+            </summary>
+        </member>
+        <member name="F:NotificationAPI.AssetBundleLoad.ErrorIcon">
+            <summary>
+            The sprite for the error notification icon.
+            </summary>
+        </member>
+        <member name="M:NotificationAPI.AssetBundleLoad.LoadAssetBundle">
+            <summary>
+            Loads the AssetBundle, instantiates the notification prefab and icons, and extracts the individual icon sprites.
+            Call this method during mod initialization to load the necessary assets.
+            </summary>
+        </member>
+        <member name="M:NotificationAPI.AssetBundleLoad.UnloadAssetBundle">
+            <summary>
+            Unloads the AssetBundle from memory.  Call this method when the mod is unloaded or disabled to release resources.
+            </summary>
+        </member>
+        <member name="T:NotificationAPI.Notification">
+            <summary>
+            Provides a static interface for sending notifications to the game.
+            This class is the main entry point for displaying notifications using the NotificationAPI.
+            </summary>
+        </member>
+        <member name="F:NotificationAPI.Notification._instance">
+            <summary>
+             A static reference to the NotificationManager instance.
+             This is used to push notifications to the manager.
+            </summary>
+        </member>
+        <member name="M:NotificationAPI.Notification.Notify(NotificationManager.NotificationType,System.String,System.String,System.Boolean)">
+            <summary>
+            Displays a notification in the game.
+            </summary>
+            <param name="type">The type of notification (e.g., Info, Warning, Error).</param>
+            <param name="title">The title of the notification.</param>
+            <param name="message">The message content of the notification.</param>
+            <param name="persistent">Whether the notification should remain on screen until dismissed by the user.
+            If `true`, the notification will stay visible until manually closed. If `false`, it will disappear after a short time.</param>
+        </member>
+        <member name="T:NotificationAPI.NotificationAPI">
+            <summary>
+            A Mod that provides an API for displaying pop-up notifications.  This mod sets up the NotificationManager and provides access to it.
+            </summary>
+            <remarks>
+            This class initializes the NotificationManager, loads assets required for the notification system, and provides settings
+            for customizing notification appearance and behavior.  It registers the NotificationManager as a singleton instance accessible via the Notification class.
+            This mod **does nothing on its own** but acts as a base for other mods to utilize its notification functionalities.
+            </remarks>
+        </member>
+        <member name="P:NotificationAPI.NotificationAPI.ID">
+            <inheritdoc/>
+        </member>
+        <member name="P:NotificationAPI.NotificationAPI.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:NotificationAPI.NotificationAPI.Author">
+            <inheritdoc/>
+        </member>
+        <member name="P:NotificationAPI.NotificationAPI.Version">
+            <inheritdoc/>
+        </member>
+        <member name="P:NotificationAPI.NotificationAPI.Description">
+            <inheritdoc/>
+        </member>
+        <member name="F:NotificationAPI.NotificationAPI._manager">
+            <summary>
+            The NotificationManager instance.
+            </summary>
+        </member>
+        <member name="F:NotificationAPI.NotificationAPI._settingHeaderColor">
+            <summary>
+            Header color for settings menu.
+            </summary>
+        </member>
+        <member name="F:NotificationAPI.NotificationAPI.NotificationSpeedSlider">
+            <summary>
+            Settings slider for notification speed.
+            </summary>
+        </member>
+        <member name="F:NotificationAPI.NotificationAPI.NotificationDurationSlider">
+            <summary>
+            Settings slider for notification duration.
+            </summary>
+        </member>
+        <member name="F:NotificationAPI.NotificationAPI.NotificationSpacingSlider">
+            <summary>
+            Settings slider for notification spacing.
+            </summary>
+        </member>
+        <member name="F:NotificationAPI.NotificationAPI.NotificationSoundChk">
+            <summary>
+            Settings checkbox for notification sound.
+            </summary>
+        </member>
+        <member name="F:NotificationAPI.NotificationAPI.NotificationVolumeSlider">
+            <summary>
+            Settings slider for volume sound.
+            </summary>
+        </member>
+        <member name="M:NotificationAPI.NotificationAPI.ModSetup">
+            <inheritdoc/>
+        </member>
+        <member name="M:NotificationAPI.NotificationAPI.Mod_Settings">
+            <summary>
+            Adds settings to the Mod Settings menu.
+            </summary>
+        </member>
+        <member name="M:NotificationAPI.NotificationAPI.OnNotificationSpacingChange">
+            <summary>
+            Callback function for when the notification spacing setting changes.
+            </summary>
+        </member>
+        <member name="M:NotificationAPI.NotificationAPI.OnNotificationDurationhange">
+            <summary>
+            Callback function for when the notification duration setting changes.
+            </summary>
+        </member>
+        <member name="M:NotificationAPI.NotificationAPI.OnNotificationSpeedChange">
+            <summary>
+            Callback function for when the notification speed setting changes.
+            </summary>
+        </member>
+        <member name="M:NotificationAPI.NotificationAPI.OnNotificationSoundChange">
+            <summary>
+            Callback function for when the notification playsound setting changes.
+            </summary>
+        </member>
+        <member name="M:NotificationAPI.NotificationAPI.OnNotificationVolumeChange">
+            <summary>
+            Callback function for when the notification volume setting changes.
+            </summary>
+        </member>
+        <member name="M:NotificationAPI.NotificationAPI.Mod_PreLoad">
+            <summary>
+            Called before the main game is loaded.  Loads assets and creates the NotificationManager.
+            </summary>
+        </member>
+        <member name="M:NotificationAPI.NotificationAPI.Mod_OnLoad">
+            <summary>
+            Called when the mod is loaded.  Applies settings to the notification manager.
+            </summary>
+        </member>
+        <member name="T:NotificationBehaviour">
+            <summary>
+            Handles the behavior of individual notifications, including auto-closing and interaction with the NotificationManager.
+            </summary>
+            <remarks>
+            This script is responsible for determining whether a notification should be automatically closed after a certain duration,
+            and for triggering the slide-out animation and destruction of the notification.  It is intended to be attached
+            to the notification prefab instance.
+            </remarks>
+        </member>
+        <member name="F:NotificationBehaviour.isPersistent">
+            <summary>
+            Indicates whether the notification should persist until manually closed.
+            </summary>
+        </member>
+        <member name="F:NotificationBehaviour.duration">
+            <summary>
+            The duration (in seconds) for which the notification should be displayed before auto-closing (if not persistent).
+            </summary>
+        </member>
+        <member name="F:NotificationBehaviour.manager">
+            <summary>
+            A reference to the NotificationManager that created this notification.
+            </summary>
+        </member>
+        <member name="F:NotificationBehaviour.notificationGO">
+            <summary>
+            A reference to the GameObject that represents the notification.
+            </summary>
+        </member>
+        <member name="M:NotificationBehaviour.Setup(System.Boolean,System.Single,NotificationManager,UnityEngine.GameObject)">
+            <summary>
+            Initializes the NotificationBehaviour with the necessary data.  This method should be called immediately after instantiating the prefab.
+            </summary>
+            <param name="isPersistent">Whether the notification is persistent.</param>
+            <param name="duration">The duration of the notification (if not persistent).</param>
+            <param name="manager">The NotificationManager instance.</param>
+            <param name="notificationGO">The notification GameObject instance.</param>
+        </member>
+        <member name="M:NotificationBehaviour.AutoClose">
+            <summary>
+            Coroutine that waits for the specified duration and then triggers the slide-out animation and destruction of the notification.
+            </summary>
+            <returns>An IEnumerator for the coroutine.</returns>
+        </member>
+        <member name="T:NotificationManager">
+            <summary>
+            **NotificationManager**
+            </summary>
+            <remarks>
+             A robust system for creating and displaying in-game notifications within a Unity environment.
+             It offers the ability to generate notifications of varying types (Info, Warning, Error) with customizable durations and persistence.
+             The system employs a UI prefab for visual representation and manages their placement, animation, and lifecycle.
+            </remarks>
+        </member>
+        <member name="F:NotificationManager.notificationPrefab">
+            <summary>
+            The UI prefab used as a template for creating new notifications.
+            </summary>
+            <remarks>
+             **Important:** The prefab should adhere to a specific structure:
+              - A root GameObject with a `RectTransform` component.
+              - Child GameObjects named "Icon", "Title", "Message", and "CloseButton".
+              - "Icon" must have an `Image` component to display the notification icon.
+              - "Title" and "Message" must have `Text` components to display the notification text.
+              - "CloseButton" must have a `Button` component to allow the user to dismiss the notification.
+            </remarks>
+        </member>
+        <member name="F:NotificationManager.notificationParent">
+            <summary>
+            The `Transform` component of the UI element that will act as the parent for all instantiated notifications.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.notificationSpacing">
+            <summary>
+             The vertical spacing between individual notifications in the notification stack.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.notificationSpeed">
+            <summary>
+            The duration of the slide-in and slide-out animation of notifications, measured in seconds.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.notificationDuration">
+            <summary>
+            The time (in seconds) for which a non-persistent notification will remain visible before automatically disappearing.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.InfoIcon">
+            <summary>
+            The `Sprite` used to visually represent informational notifications.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.WarningIcon">
+            <summary>
+            The `Sprite` used to visually represent warning notifications.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.ErrorIcon">
+            <summary>
+            The `Sprite` used to visually represent error notifications.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.maxNotifications">
+            <summary>
+            The maximum number of notifications that can be displayed simultaneously.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.NotificationAudioSource">
+            <summary>
+            AudioSource for the notification sound.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.PlaySoundAlert">
+            <summary>
+            Settings to play or not to play audio alert sound.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.activeNotifications">
+            <summary>
+            A list of `GameObject` representing the notifications currently being displayed.
+            </summary>
+        </member>
+        <member name="T:NotificationManager.NotificationType">
+            <summary>
+            Defines the possible types of notifications that can be displayed.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.NotificationType.Info">
+            <summary>
+            Represents an informational notification.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.NotificationType.Warning">
+            <summary>
+            Represents a warning notification.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.NotificationType.Error">
+            <summary>
+            Represents an error notification.
+            </summary>
+        </member>
+        <member name="T:NotificationManager.NotificationData">
+            <summary>
+            A data structure that encapsulates all the information required to create a notification.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.NotificationData.type">
+            <summary>
+            The `NotificationType` of the notification (Info, Warning, Error).
+            </summary>
+        </member>
+        <member name="F:NotificationManager.NotificationData.title">
+            <summary>
+            The title text displayed on the notification.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.NotificationData.message">
+            <summary>
+            The main message content displayed on the notification.
+            </summary>
+        </member>
+        <member name="F:NotificationManager.NotificationData.isPersistent">
+            <summary>
+            A boolean flag indicating whether the notification should persist on the screen until manually dismissed by the user.
+            </summary>
+        </member>
+        <member name="M:NotificationManager.Start">
+            <summary>
+            Called when the script instance is being loaded.  Used here to perform initial setup and error checking.
+            </summary>
+        </member>
+        <member name="M:NotificationManager.PushNotification(NotificationManager.NotificationData)">
+            <summary>
+            Creates and displays a new notification with the specified data.
+            </summary>
+            <param name="data">A `NotificationData` struct containing the information for the notification.</param>
+        </member>
+        <member name="M:NotificationManager.SlideOutNotification(UnityEngine.GameObject)">
+            <summary>
+            Initiates the coroutine that animates a notification sliding out of view before being destroyed.
+            </summary>
+            <param name="notification">The `GameObject` representing the notification to slide out.</param>
+        </member>
+        <member name="M:NotificationManager.CreateNotification(NotificationManager.NotificationData)">
+            <summary>
+            Instantiates the notification prefab, populates it with the provided data, and manages its lifecycle.
+            </summary>
+            <param name="data">The `NotificationData` containing the information for the notification to be created.</param>
+            <returns>The newly created `GameObject` representing the notification, or `null` if the creation process failed.</returns>
+        </member>
+        <member name="M:NotificationManager.DestroyNotification(UnityEngine.GameObject)">
+            <summary>
+            Destroys a notification `GameObject`, removing it from the active notifications list and updating the positions of the remaining notifications.
+            </summary>
+            <param name="notification">The `GameObject` representing the notification to be destroyed.</param>
+        </member>
+        <member name="M:NotificationManager.GetIconForNotificationType(NotificationManager.NotificationType)">
+            <summary>
+            Returns the appropriate `Sprite` for a given `NotificationType`.
+            </summary>
+            <param name="type">The `NotificationType` for which to retrieve the icon.</param>
+            <returns>The `Sprite` associated with the specified `NotificationType`.</returns>
+        </member>
+        <member name="M:NotificationManager.UpdateNotificationPositions">
+            <summary>
+            Updates the vertical positions of all active notifications to maintain consistent spacing between them.
+            </summary>
+        </member>
+        <member name="M:NotificationManager.GetOffScreenPosition(UnityEngine.RectTransform)">
+            <summary>
+            Calculates the off-screen position from which a notification will slide in.
+            </summary>
+            <param name="rect">The `RectTransform` of the notification.</param>
+            <returns>A `Vector2` representing the off-screen position.</returns>
+        </member>
+        <member name="M:NotificationManager.SlideNotification(UnityEngine.RectTransform,UnityEngine.Vector2,UnityEngine.Vector2,System.Single)">
+            <summary>
+            A coroutine that animates a notification's position, creating a sliding effect.
+            </summary>
+            <param name="rect">The `RectTransform` of the notification to animate.</param>
+            <param name="from">The starting position of the animation.</param>
+            <param name="to">The ending position of the animation.</param>
+            <param name="duration">The duration of the animation in seconds.</param>
+            <returns>An `IEnumerator` to allow the coroutine to execute over multiple frames.</returns>
+        </member>
+        <member name="M:NotificationManager.SlideOutAndDestroy(UnityEngine.GameObject)">
+            <summary>
+            A coroutine that slides a notification out of view and then destroys it.
+            </summary>
+            <param name="notification">The notification `GameObject` to slide out and destroy.</param>
+            <returns>An `IEnumerator` for the coroutine.</returns>
+        </member>
+        <member name="M:NotificationManager.PlaySound">
+            <summary>
+            After the notification speed delay, plays the notification audio alert one time.
+            </summary>
+        </member>
+    </members>
+</doc>

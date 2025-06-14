@@ -1,0 +1,7 @@
+D:\NotificationAPI\bin\Debug\NotificationAPI.dll
+D:\NotificationAPI\bin\Debug\NotificationAPI.pdb
+D:\NotificationAPI\obj\Debug\NotificationAPI.csproj.AssemblyReference.cache
+D:\NotificationAPI\obj\Debug\NotificationAPI.csproj.CoreCompileInputs.cache
+D:\NotificationAPI\obj\Debug\NotificationAPI.dll
+D:\NotificationAPI\obj\Debug\NotificationAPI.pdb
+D:\NotificationAPI\bin\Debug\NotificationAPI.xml
