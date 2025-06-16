@@ -68,7 +68,8 @@ Your mod needs to reference `NotificationAPI.dll` in the `Mods` folder, to acces
 
 1.  Add a reference to the `NotificationAPI.dll` to your project.
 2.  Include the  `NotificationAPI`  namespace in your script using  `using NotificationAPI;`.
-3.  Call the  `Notification.Notify`  static method to display notifications:
+3.  Check if `NotificationAPI` is present as mod.
+4.  Call the  `Notification.Notify`  static method to display notifications:
 ```csharp
 
 using  NotificationAPI; // Add this to the top of your script
@@ -79,17 +80,88 @@ using  NotificationAPI; // Add this to the top of your script
 
   
 
-Notification.Notify(
+if (ModLoader.IsModPresent("NotificationAPI"))
+{
+    Notification.Notify(
 
-NotificationManager.NotificationType.Info, // The type of notification
+    NotificationManager.NotificationType.Info, // The type of notification
 
-"Fuel Alert", // The title of the notification
+    "Fuel Alert", // The title of the notification
 
-"Your fuel is running low!", // The message content
+    "Your fuel is running low!", // The message content
 
-false  // Whether the notification is persistent (true/false)
+    false  // Whether the notification is persistent (true/false)
 
-);
+    );
+}
+```
+
+### Example For Dynamic Values
+```csharp
+using System.Collections;
+using UnityEngine;
+using NotificationAPI; // Add this to the top of your MonoBehaviour script
+
+  
+
+// ... Inside your MonoBehaviour script code ...
+
+private bool coroutineStarted = false;
+private GameObject FuelTank; // FuelTank GameObject refrence.
+private float previousFuelLevel; // Store the previous fuel level to detect changes
+
+void Start()
+{
+    FuelTank = GameObject.Find("FuelTank"); // Get FuelTank GameObject.
+    previousFuelLevel = FuelTank.fuelTankLevel; // Initialize previousFuelLevel at the start
+}
+
+void Update()
+{
+    // Check if fuel level is below the threshold
+    if (FuelTank.fuelTankLevel <= 5f)
+    {
+        if (!coroutineStarted)
+        {
+            // Coroutine is not running, so start it
+            StartCoroutine(LowFuelWarningCoroutine()); // Starts the low fuel warning coroutine
+            coroutineStarted = true; // Set the flag to indicate the coroutine is running
+        }
+    }
+    else
+    {
+        // Fuel level is above the threshold.  Check if it has changed.
+        if (FuelTank.fuelTankLevel != previousFuelLevel)
+        {
+            // Resets the low fuel warning coroutine, stopping it if it's running and resetting the flag.
+            if (coroutineStarted)
+            {
+                // Coroutine is running, so stop it
+                StopCoroutine(LowFuelWarningCoroutine()); // Stops the low fuel warning coroutine
+                coroutineStarted = false; // Reset the flag to allow the coroutine to be started again
+            }
+            previousFuelLevel = FuelTank.fuelTankLevel; // Update the previous fuel level
+        }
+    }
+}
+
+private IEnumerator LowFuelWarningCoroutine()
+{
+    Notification.Notify(
+
+    NotificationManager.NotificationType.Info, // The type of notification
+
+    "Fuel Alert", // The title of the notification
+
+    "Your fuel is running low!", // The message content
+
+    false  // Whether the notification is persistent (true/false)
+
+    );
+}
+
+// Or you can make a custom event that fires up once fuel level is below the threshold
+
 ```
 ## Known Issues
 
